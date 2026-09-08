@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anuska ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Poppins,sans-serif;background:linear-gradient(135deg,#fff0f5,#ffe4ec,#fff7fb);color:#3b2430;overflow-x:hidden}
+.screen{min-height:100vh;display:none;place-items:center;padding:25px;position:relative}
+.screen.active{display:grid}
+.card{width:min(92vw,560px);background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:28px;padding:38px 28px;box-shadow:0 20px 60px rgba(150,50,90,.16);text-align:center}
+h1{font-size:clamp(30px,8vw,52px);margin:5px 0 12px}
+h2{font-size:28px;margin:5px 0 18px}
+.script{font-family:"Dancing Script",cursive}
+.sub{opacity:.72;margin-bottom:25px}
+.buttons{display:flex;justify-content:center;gap:16px;min-height:56px;position:relative}
+button{border:0;border-radius:999px;padding:14px 26px;font:600 15px Poppins;cursor:pointer;transition:.2s}
+.yes{background:#ff5d8f;color:#fff;box-shadow:0 8px 20px rgba(255,93,143,.3)}
+.yes:hover{transform:translateY(-2px) scale(1.03)}
+.no{background:#f1e8ec;color:#6e5660;position:relative}
+.next{background:#34212a;color:white;margin-top:20px}
+.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:20px 0}
+.option{background:#fff;border:2px solid #f1d8e2;border-radius:18px;padding:18px 10px;font-size:15px}
+.option.selected{border-color:#ff5d8f;background:#fff0f5}
+input{width:100%;padding:14px;border:2px solid #f1d8e2;border-radius:14px;font:15px Poppins;outline:none;margin:8px 0 2px}
+input:focus{border-color:#ff7ca3}
+.menu{display:grid;gap:10px;text-align:left;margin-top:18px}
+.food{display:flex;justify-content:space-between;align-items:center;background:white;padding:14px 16px;border-radius:15px;border:2px solid #f4e1e8;cursor:pointer}
+.food.selected{border-color:#ff5d8f;background:#fff0f5}
+.total{font-weight:700;margin-top:18px}
+.invoice{text-align:left;background:#fff;border-radius:20px;padding:20px;margin-top:18px}
+.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #ead5dd}
+.row:last-child{border-bottom:0}
+.discount{color:#d53b70;font-weight:600}
+.grand{font-size:22px;font-weight:700;text-align:center;margin-top:15px}
+.success{color:#26a269;font-weight:700;margin-top:12px}
+.heart{position:fixed;pointer-events:none;animation:float 4s linear forwards;font-size:20px}
+@keyframes float{from{transform:translateY(0) scale(1);opacity:1}to{transform:translateY(-110vh) rotate(20deg) scale(1.5);opacity:0}}
+@media(max-width:430px){.card{padding:30px 19px}.option-grid{gap:9px}}
+</style>
+</head>
+<body>
+
+<section class="screen active" id="s1">
+<div class="card">
+  <div style="font-size:45px">👀</div>
+  <h1 class="script">Anuska…</h1>
+  <h2>Wanna Hang Out With Me? 🫶</h2>
+  <p class="sub">Choose carefully. Your answer may have consequences. 😭</p>
+  <div class="buttons">
+    <button class="yes" onclick="go(2)">YES ❤️</button>
+    <button class="no" id="noBtn">NO 😐</button>
+  </div>
+</div>
+</section>
+
+<section class="screen" id="s2">
+<div class="card">
+  <div style="font-size:40px">📅</div>
+  <h2>Okayyy, let's plan it 😌</h2>
+  <p class="sub">Pick a date and time.</p>
+  <input type="date" id="date">
+  <input type="time" id="time">
+  <button class="next" onclick="go(3)">NEXT →</button>
+</div>
+</section>
+
+<section class="screen" id="s3">
+<div class="card">
+  <div style="font-size:40px">📍</div>
+  <h2>Where are we going?</h2>
+  <p class="sub">You choose. I promise not to complain. 😇</p>
+  <div class="option-grid">
+    <button class="option" onclick="pick(this,'place','☕ Cafe')">☕ Cafe</button>
+    <button class="option" onclick="pick(this,'place','🎬 Movie')">🎬 Movie</button>
+    <button class="option" onclick="pick(this,'place','🌳 Park')">🌳 Park</button>
+    <button class="option" onclick="pick(this,'place','🍽️ Dinner')">🍽️ Dinner</button>
+  </div>
+  <button class="next" onclick="go(4)">NEXT →</button>
+</div>
+</section>
+
+<section class="screen" id="s4">
+<div class="card">
+  <div style="font-size:40px">🍕</div>
+  <h2>What are we eating?</h2>
+  <p class="sub">Select whatever makes you happy ❤️</p>
+  <div class="menu">
+    <div class="food" onclick="food(this,'🍕 Pizza',499)"><span>🍕 Pizza</span><b>₹499</b></div>
+    <div class="food" onclick="food(this,'🍔 Burger',299)"><span>🍔 Burger</span><b>₹299</b></div>
+    <div class="food" onclick="food(this,'🥟 Momos',249)"><span>🥟 Momos</span><b>₹249</b></div>
+    <div class="food" onclick="food(this,'🍟 Fries',199)"><span>🍟 Fries</span><b>₹199</b></div>
+  </div>
+  <div class="total" id="foodTotal">Food: ₹0</div>
+  <button class="next" onclick="go(5)">SEE THE BILL 💸</button>
+</div>
+</section>
+
+<section class="screen" id="s5">
+<div class="card">
+  <div style="font-size:40px">🧾</div>
+  <h2>YOUR DATE INVOICE</h2>
+  <div class="invoice">
+    <div class="row"><span>🍕 Food</span><b id="billFood">₹0</b></div>
+    <div class="row"><span>🥰 Cuteness Tax</span><b>₹999</b></div>
+    <div class="row"><span>😂 Making You Laugh Fee</span><b>₹69</b></div>
+    <div class="row"><span>😭 Drama Handling Fee</span><b>₹999</b></div>
+    <div class="row"><span>📸 Photo Session Charges</span><b>₹199</b></div>
+    <div class="row"><span>❤️ Loving You Charge</span><b>₹0</b></div>
+    <div class="row"><span>Subtotal</span><b id="subtotal">₹2,266</b></div>
+    <div class="row discount"><span>❤️ LOVE DISCOUNT</span><b id="discount">−₹2,266</b></div>
+    <div class="grand">TOTAL: ₹0</div>
+    <div class="success">✅ PAID WITH LOVE ❤️</div>
+  </div>
+  <p class="sub" style="margin:18px 0 0">No refunds. No cancellations. No escape. 💀</p>
+  <button class="next" onclick="go(6)">ONE LAST THING →</button>
+</div>
+</section>
+
+<section class="screen" id="s6">
+<div class="card">
+  <div style="font-size:45px">❤️</div>
+  <h1 class="script">For Anuska</h1>
+  <p class="script" style="font-size:29px;line-height:1.35">
+    And after all the jokes,<br>
+    all I really want is to spend a little time with you. ❤️<br><br>
+    So… no matter where we go,<br>
+    I’ll be happy as long as I’m with you. 🫶
+  </p>
+  <button class="yes" onclick="celebrate()">Can't wait ❤️</button>
+</div>
+</section>
+
+<script>
+const state={place:'',food:0};
+function go(n){
+  if(n===3){
+    if(!document.getElementById('date').value || !document.getElementById('time').value){
+      alert('Date aur time choose kar lo madam 😭❤️'); return;
+    }
+  }
+  if(n===4 && !state.place){ alert('Pehle place choose karo 👀'); return; }
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  if(n===5) updateBill();
+  window.scrollTo(0,0);
+}
+function pick(el,key,val){
+  document.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected'); state[key]=val;
+}
+function food(el,name,price){
+  el.classList.toggle('selected');
+  state.food += el.classList.contains('selected') ? price : -price;
+  document.getElementById('foodTotal').textContent='Food: ₹'+state.food;
+}
+function updateBill(){
+  const subtotal=state.food+999+69+999+199;
+  document.getElementById('billFood').textContent='₹'+state.food;
+  document.getElementById('subtotal').textContent='₹'+subtotal.toLocaleString('en-IN');
+  document.getElementById('discount').textContent='−₹'+subtotal.toLocaleString('en-IN');
+}
+const no=document.getElementById('noBtn');
+function moveNo(){
+  const card=no.closest('.card').getBoundingClientRect();
+  const maxX=Math.max(10,card.width-no.offsetWidth-10);
+  const maxY=100;
+  no.style.position='absolute';
+  no.style.left=(Math.random()*maxX)+'px';
+  no.style.top=(Math.random()*maxY+5)+'px';
+}
+no.addEventListener('mouseenter',moveNo);
+no.addEventListener('touchstart',(e)=>{e.preventDefault();moveNo()},{passive:false});
+no.addEventListener('click',moveNo);
+
+function celebrate(){
+  for(let i=0;i<35;i++){
+    setTimeout(()=>{
+      const h=document.createElement('div'); h.className='heart';
+      h.textContent=['❤️','💗','💕','🫶','✨'][Math.floor(Math.random()*5)];
+      h.style.left=Math.random()*100+'vw'; h.style.bottom='-30px';
+      h.style.animationDuration=(2.5+Math.random()*2)+'s';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),5000);
+    },i*70);
+  }
+}
+</script>
+</body>
+</html>
