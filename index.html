@@ -181,7 +181,7 @@ function celebrate(){
   for(let i=0;i<35;i++){
     setTimeout(()=>{
       const h=document.createElement('div'); h.className='heart';
-      h.textContent=['❤️','💗','💕','🫶','✨'][Math.floor(Math.random()*5)];
+      h.textContent=['💕''🫶',,'✨''❤️','💗','💕','🫶','❤️','✨''💗',][Math.floor(Math.random()*5)];
       h.style.left=Math.random()*100+'vw'; h.style.bottom='-30px';
       h.style.animationDuration=(2.5+Math.random()*2)+'s';
       document.body.appendChild(h);
@@ -189,6 +189,190 @@ function celebrate(){
     },i*70);
   }
 }
-</script>
-</body>
+</script> 
+/* ===== CUTE SONG FOLDER ===== */
+.song-folder-wrap{
+  width:min(90vw,500px);
+  margin:10px auto 35px;
+  text-align:center;
+}
+
+.song-folder{
+  position:relative;
+  width:170px;
+  height:120px;
+  margin:0 auto;
+  cursor:pointer;
+  perspective:700px;
+}
+
+.folder-back{
+  position:absolute;
+  inset:18px 0 0;
+  background:#ffd6e4;
+  border-radius:8px 10px 14px 14px;
+  box-shadow:0 12px 30px rgba(150,50,90,.18);
+}
+
+.folder-tab{
+  position:absolute;
+  left:0;
+  top:5px;
+  width:70px;
+  height:25px;
+  background:#ffc4d8;
+  border-radius:8px 8px 0 0;
+}
+
+.folder-front{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:88px;
+  background:linear-gradient(135deg,#ffb6cf,#ffd0df);
+  border-radius:5px 5px 13px 13px;
+  transform-origin:bottom;
+  transition:.55s ease;
+  box-shadow:0 8px 18px rgba(150,50,90,.12);
+}
+
+.folder-heart{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:35px;
+  transition:.4s;
+}
+
+.song-folder.open .folder-front{
+  transform:rotateX(-55deg);
+}
+
+.song-folder.open .folder-heart{
+  transform:translate(-50%,-75px) scale(1.15);
+}
+
+.folder-text{
+  margin-top:12px;
+  font-family:"Dancing Script",cursive;
+  font-size:25px;
+  color:#6e3d50;
+}
+
+.folder-hint{
+  font-size:12px;
+  opacity:.6;
+  margin-top:3px;
+}
+
+/* Song player */
+.song-player{
+  display:none;
+  margin:20px auto 0;
+  padding:20px 17px;
+  width:min(92vw,460px);
+  background:rgba(255,255,255,.9);
+  border:1px solid #f3d8e3;
+  border-radius:24px;
+  box-shadow:0 12px 35px rgba(150,50,90,.13);
+  animation:musicOpen .5s ease;
+}
+
+.song-player.show{
+  display:block;
+}
+
+@keyframes musicOpen{
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.song-title{
+  font-family:"Dancing Script",cursive;
+  font-size:27px;
+  margin-bottom:4px;
+}
+
+.song-sub{
+  font-size:12px;
+  opacity:.62;
+  margin-bottom:13px;
+}
+
+.song-player audio{
+  width:100%;
+  height:42px;
+}
+</style>
+
+<script>
+/* ===== ADD FOLDER AFTER THE LAST MESSAGE ===== */
+
+const lastScreen = document.getElementById("s6");
+
+if(lastScreen){
+
+  const folderWrap = document.createElement("div");
+  folderWrap.className = "song-folder-wrap";
+
+  folderWrap.innerHTML = `
+    <div class="song-folder" id="songFolder">
+      <div class="folder-back"></div>
+      <div class="folder-tab"></div>
+      <div class="folder-front"></div>
+      <div class="folder-heart">❤️</div>
+    </div>
+
+    <div class="folder-text">
+      A little something for you…
+    </div>
+
+    <div class="folder-hint">
+      Tap the folder 🎀
+    </div>
+
+    <div class="song-player" id="songPlayer">
+      <div class="song-title">
+        🎵 Best Frnd
+      </div>
+
+      <div class="song-sub">
+        This one's for you ❤️
+      </div>
+
+      <audio controls preload="metadata">
+        <source src="best%20frnd.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+      </audio>
+    </div>
+  `;
+
+  /* Put folder after the existing content of the last screen */
+  lastScreen.querySelector(".card").appendChild(folderWrap);
+
+  const folder = document.getElementById("songFolder");
+  const player = document.getElementById("songPlayer");
+
+  folder.addEventListener("click", function(){
+
+    folder.classList.toggle("open");
+
+    if(folder.classList.contains("open")){
+      player.classList.add("show");
+    }else{
+      player.classList.remove("show");
+    }
+
+  });
+}
+</script> </body>
 </html>
